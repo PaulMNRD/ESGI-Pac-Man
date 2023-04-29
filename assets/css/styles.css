@@ -71,6 +71,11 @@ header ul li a:hover {
 	cursor: pointer;
 } 
 
+#game-over{
+	padding: 148px 0;
+	z-index: 0;
+}
+
 .jeu {
 	position: absolute;
 }

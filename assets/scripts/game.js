@@ -240,6 +240,10 @@ let ghosts = [pinky, blinky, inky, clyde];
 let pacman = new PacMan(13 * 16, 23 * 16, "yellow", "");
 let directory = pacman.direction
 
+let jeu = document.querySelector('#map');
+const start = document.querySelector('#start');
+let gameover = document.querySelector('#game-over');
+
 document.addEventListener('keydown', function (event) {
 	if ((event.code == "ArrowUp" || event.code == "KeyW")) {
 		if (map[pacman.caseY - 1][pacman.caseX] != 0) {
@@ -342,6 +346,8 @@ function run() {
 				pacman.direction = 1
 				directory = 1
 				if (pacman.life == 0) {
+					gameover.style.zIndex = "3";
+					jeu.style.filter = "blur(2px)";
 					keep = false;
 				}
 			}
@@ -372,9 +378,6 @@ function unpause() {
 	keep = true;
 	play();
 }
-
-let jeu = document.querySelector('#map');
-const start = document.querySelector('#start');
 
 start.addEventListener('click', function () {
 	play();
