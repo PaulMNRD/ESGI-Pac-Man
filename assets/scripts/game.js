@@ -233,44 +233,40 @@ let inky = new Ghost(12*16, 14*16, "pink", "assets/img/inky.png");
 let clyde = new Ghost(15*16, 14*16, "orange", "assets/img/clyde.png");
 let ghosts = [pinky, blinky, inky, clyde];
 
-let pacman = new PacMan(13*16, 23*16, "yellow", "assets/img/pinky.png");
+let pacman = new PacMan(13 * 16, 23 * 16, "yellow", "");
 let directory = pacman.direction
 
 document.addEventListener('keydown', function(event) {
 	if ((event.code == "ArrowUp" || event.code == "KeyW")) {
 		if (map[pacman.caseY-1][pacman.caseX]!=0){
 			pacman.direction=0;
-			pacman.speed=1;
 		}
 		directory=0;
 	}
 	if ((event.code == "ArrowRight" || event.code == "KeyD")) {
 		if (map[pacman.caseY][pacman.caseX+1]!=0){
 			pacman.direction=1;
-			pacman.speed=1;
 		}
 		directory=1;
 	}
 	if ((event.code == "ArrowDown" || event.code == "KeyS")) {
 		if (map[pacman.caseY+1][pacman.caseX]!=0){
 			pacman.direction=2;
-			pacman.speed=1;
 		}
 		directory=2;
 	}
 	if ((event.code == "ArrowLeft" || event.code == "KeyA")) {
 		if (map[pacman.caseY][pacman.caseX-1]!=0){
 			pacman.direction=3;
-			pacman.speed=1;
 		}
 		directory=3;
 	}
-})
-function mapPoints(){
-	nb_points=0
-	for (i=0;i<map.length;i++){
-		for (j=0;j<map[i].length;j++){
-			if (map[i][j]==2){
+});
+function mapPoints() {
+	nb_points = 0;
+	for (i = 0; i < map.length; i++) {
+		for (j = 0; j < map[i].length; j++) {
+			if (map[i][j] == 2) {
 				ctx.fillStyle = "yellow";
 				ctx.fillRect(j*16+6, i*16+6, 4, 4);
 				nb_points++;
@@ -284,7 +280,7 @@ function mapPoints(){
 			}
 		}
 	}
-	if (nb_points==0){
+	if (nb_points == 0) {
 		keep=false;
 	}
 }
@@ -356,13 +352,13 @@ function run() {
 	life.innerHTML=pacman.life;
 }
 function play() {
-	if(keep){
-		ctx.clearRect(0, 0, 448, 496);
-		mapPoints();
-		testDirectory();
-		run();
+	ctx.clearRect(0, 0, 448, 496);
+	mapPoints();
+	testDirectory();
+	run();
+	if (keep) {
+		requestAnimationFrame(play);
 	}
-	requestAnimationFrame(play);
 }
 
 function pause(){
@@ -370,6 +366,14 @@ function pause(){
 }
 function unpause(){
 	keep = true;
+	play();
 }
 
-play();
+let jeu = document.querySelector('#map');
+const start = document.querySelector('#start');
+
+start.addEventListener('click', function() {
+	play();
+	jeu.style.filter="none";
+	start.remove();
+});

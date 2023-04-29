@@ -5,15 +5,20 @@
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>Pac-Man</title>
 
-			<link rel="stylesheet" href="assets/css/temporaire.css">
+			<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-  <canvas id="map" width="448" height="496"></canvas>
-  <div>
-  Score : <div id="score"></div>
-  </div>
-  <div>
-  Vies : <div id="life"></div>
+  <div class="container">
+    <canvas id="map" class="jeu" width="448" height="496"></canvas>
+    <div id="start" class="jeu">
+      <img src="assets/img/start.png" width="448" height="200" alt="">
+    </div>
+    <div>
+      Score : <div id="score"></div>
+    </div>
+    <div>
+      Vies : <div id="life"></div>
+    </div>
   </div>
   <script src="assets/scripts/game.js"></script>
 </body>

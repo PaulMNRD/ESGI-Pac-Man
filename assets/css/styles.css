@@ -1,0 +1,22 @@
+.container {
+	display: flex;
+	justify-content: space-around;
+	max-width: 1480px;
+    margin: 0 auto;
+}
+#map{
+	border: 2px solid black;
+	background-image: url("../img/pac-man.png");
+	filter: blur(2px);
+	border-radius: 15px;
+	z-index: 1;
+}
+#start{
+	padding: 148px 0;
+	z-index: 2;
+	cursor: pointer;
+} 
+.jeu{
+	position: absolute;
+	padding: auto;
+}
