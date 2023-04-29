@@ -221,11 +221,35 @@ class PacMan {
 		this.drawCase();
 	}
 	draw() {
-		this.ctx.drawImage(this.sprite, this.direction * 163 + 11, 4, 151, 151, this.X - 1 / 4 * 32, this.Y - 1 / 4 * 32, 32, 32);
+		let angle1, angle2; // variables pour les angles qui forment la bouche de pacman en fonction de sa direction
+	
+		switch (this.direction) {
+			case 1:
+				angle1 = 0.2*Math.PI;
+				angle2 = 1.8*Math.PI;
+				break;
+			case 2:
+				angle1 = 0.7*Math.PI;
+				angle2 = 0.3*Math.PI;
+				break;
+			case 3:
+				angle1 = 1.2*Math.PI;
+				angle2 = 0.8*Math.PI;
+				break;
+			default:
+				angle1 = 1.7*Math.PI;
+				angle2 = 1.3*Math.PI;
+				break;
+		}
+		this.ctx.beginPath();
+		this.ctx.fillStyle = this.color;
+		this.ctx.arc(this.caseX * 16+8, this.caseY * 16+8, 16, angle1, angle2);
+		this.ctx.lineTo(this.caseX * 16+8, this.caseY * 16+8);
+		this.ctx.fill();	
+
 	}
 	drawCase() {
-		this.ctx.fillStyle = this.color;
-		this.ctx.fillRect(this.caseX * 16, this.caseY * 16, 16, 16);
+
 	}
 
 }
