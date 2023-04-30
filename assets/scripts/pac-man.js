@@ -20,8 +20,7 @@ export class PacMan extends Entity{
         super(X, Y)
         this.score = score;
         this.life = life;
-	pointsLeft = 244;
-	
+	    pointsLeft = 244;
         this.draw();
     }
     

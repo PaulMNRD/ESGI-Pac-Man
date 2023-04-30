@@ -45,6 +45,10 @@ header ul li a:hover {
 	color: black;
 }
 
+#login{
+	border: 1px solid yellow;
+}
+
 .active a {
 	background: yellow;
 	color: black;
@@ -101,6 +105,11 @@ header ul li a:hover {
 	padding: 148px 0;
 	z-index: 0;
 	cursor: pointer;
+}
+
+#under-map {
+	margin-left: 5px;
+	margin-top: 5px;
 }
 
 .jeu {

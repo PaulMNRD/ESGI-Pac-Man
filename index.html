@@ -1,18 +1,18 @@
 <html>
 <head>
-			<meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>Pac-Man</title>
-
-			<link rel="stylesheet" href="assets/css/styles.css">
-            <script src="assets/scripts/share.js" type="module" defer></script>
-            <script src="assets/scripts/entity.js" type="module"></script>
-            <script src="assets/scripts/ghost.js" type="module"></script>
-            <script src="assets/scripts/pac-man.js" type="module"></script>
-            <script src="assets/scripts/map.js" type="module"></script>
-            <script src="assets/scripts/game.js" type="module" defer></script>
-            <script src="assets/scripts/events.js" type="module" defer></script>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pac-Man</title>
+  <link rel="icon" href="assets/img/pacman-life.png">
+	<link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/scripts/share.js" type="module" defer></script>
+  <script src="assets/scripts/entity.js" type="module"></script>
+  <script src="assets/scripts/ghost.js" type="module"></script>
+  <script src="assets/scripts/pac-man.js" type="module"></script>
+  <script src="assets/scripts/map.js" type="module"></script>
+  <script src="assets/scripts/game.js" type="module" defer></script>
+  <script src="assets/scripts/events.js" type="module" defer></script>
 </head>
 <body>
   <header>
@@ -24,6 +24,9 @@
         </li>
         <li>
             <a href="infos.html">En savoir plus</a>
+        </li>
+        <li>
+          <a id="login" href="#">Se connecter</a>
         </li>
       </ul>  
     </nav>
@@ -56,7 +59,7 @@
       <div id="game-over" class="jeu" >
         <img src="assets/img/game-over.png" width="458" height="200">
       </div>
-      <img src="assets/img/map.png" width="458" height="496">
+      <img id="under-map" src="assets/img/map.png" width="448" height="496">
     </div>
     <div id="lead">
       <img src="assets/img/pacman.png" alt="" width="280px">
