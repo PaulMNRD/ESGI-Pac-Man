@@ -9,7 +9,7 @@
 <body>
   <header>
     <nav>
-      <a href="#"><img src="assets/img/logo-pm.png" alt="" width="200px"></a>
+      <a href="index.html"><img src="assets/img/logo-pm.png" alt="" width="200px"></a>
       <ul>
         <li class="active">
             <a href="#">Jouer</a>
@@ -21,21 +21,37 @@
     </nav>
   </header>
   <main class="container">
+    <div class="items">
+      <div>
+        <div class="stats">
+          Score: 
+          <div id="score">
+            0
+          </div>
+        </div>
+        <div class="stats">
+          Vies:
+          <div id="life">
+            <img src="assets/img/pacman-life.png" alt="" width="20px">
+            <img src="assets/img/pacman-life.png" alt="" width="20px">
+            <img src="assets/img/pacman-life.png" alt="" width="20px">
+          </div>
+        </div>
+      </div>
+      <a href="index.html">PRESS TO RESTART</a>
+    </div>
     <div>
       <canvas class="jeu"  id="map" width="448" height="496"></canvas>
       <div id="start" class="jeu" >
-        <img src="assets/img/start.png" width="448" height="200">
+        <img src="assets/img/start.png" width="458" height="200">
       </div>
       <div id="game-over" class="jeu" >
-        <img src="assets/img/game-over.png" width="448" height="200">
+        <img src="assets/img/game-over.png" width="458" height="200">
       </div>
-      <img src="assets/img/start.png" width="448" height="200">
+      <img src="assets/img/map.png" width="458" height="496">
     </div>
-    <div class="items">
-      Score:<div id="score"></div>
-    </div>
-    <div class="items">
-      Vies:<div id="life"></div>
+    <div id="lead">
+      <img src="assets/img/pacman.png" alt="" width="280px">
     </div>
   </main>
   <script src="assets/scripts/game.js"></script>

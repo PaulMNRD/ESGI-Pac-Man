@@ -31,6 +31,7 @@ let map = [
 	[0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
+
 class Ghost {
 
 	direction = 4;
@@ -50,9 +51,11 @@ class Ghost {
 	get caseX() {
 		return this.calcCase(this.X + 16 / 2);
 	}
+
 	get caseY() {
 		return this.calcCase(this.Y + 16 / 2);
 	}
+
 	calcCase(coord) {
 		return Math.floor(coord / 16);
 	}
@@ -101,9 +104,11 @@ class Ghost {
 		this.draw();
 		this.drawCase();
 	}
+	
 	draw() {
 		this.ctx.drawImage(this.sprite, this.direction * 163 + 11, 4, 151, 151, this.X - 1 / 4 * 32, this.Y - 1 / 4 * 32, 32, 32);
 	}
+
 	drawCase() {
 		this.ctx.fillStyle = this.color;
 		this.ctx.fillRect(this.caseX * 16, this.caseY * 16, 16, 16);
@@ -161,12 +166,15 @@ class PacMan {
 	get caseX() {
 		return this.calcCase(this.X + 16 / 2);
 	}
+
 	get caseY() {
 		return this.calcCase(this.Y + 16 / 2);
 	}
+
 	calcCase(coord) {
 		return Math.floor(coord / 16);
 	}
+
 	isPoint() {
 		if (map[this.caseY][this.caseX] == 2) {
 			map[this.caseY][this.caseX] = 1;
@@ -179,6 +187,7 @@ class PacMan {
 			this.timeStart = performance.now();
 		}
 	}
+
 	move() {
 		this.isPoint();
 
@@ -210,15 +219,19 @@ class PacMan {
 				}
 				break;
 		}
+
 		if (this.condition == 1 && (performance.now() - this.timeStart) > 10000) {
 			this.condition = 0;
 		}
+
 		this.draw();
 		this.drawCase();
 	}
+
 	draw() {
 		this.ctx.drawImage(this.sprite, this.direction * 163 + 11, 4, 151, 151, this.X - 1 / 4 * 32, this.Y - 1 / 4 * 32, 32, 32);
 	}
+
 	drawCase() {
 		this.ctx.fillStyle = this.color;
 		this.ctx.fillRect(this.caseX * 16, this.caseY * 16, 16, 16);
@@ -270,6 +283,7 @@ document.addEventListener('keydown', function (event) {
 		directory = 3;
 	}
 });
+
 function mapPoints() {
 	nb_points = 0;
 	for (i = 0; i < map.length; i++) {
@@ -292,6 +306,7 @@ function mapPoints() {
 		keep = false;
 	}
 }
+
 function testDirectory() {
 	if (directory != pacman.direction) {
 		switch (directory) {
@@ -318,6 +333,7 @@ function testDirectory() {
 		}
 	}
 }
+
 function run() {
 	pacman.move();
 	ghost_in_base = 0
@@ -345,11 +361,6 @@ function run() {
 				pacman.life -= 1;
 				pacman.direction = 1
 				directory = 1
-				if (pacman.life == 0) {
-					gameover.style.zIndex = "3";
-					jeu.style.filter = "blur(2px)";
-					keep = false;
-				}
 			}
 			else if (pacman.condition == 1) {
 				ghosts[i].X = 13 * 16;
@@ -358,9 +369,17 @@ function run() {
 			}
 		}
 	}
+	if (pacman.life == 0) {
+		gameover.style.zIndex = "3";
+		jeu.style.filter = "blur(2px)";
+		keep = false;
+	}
 	score.innerHTML = pacman.score;
-	life.innerHTML = pacman.life;
+	if(life.childElementCount > pacman.life){
+		life.removeChild(life.children[pacman.life]);
+	}
 }
+
 function play() {
 	ctx.clearRect(0, 0, 448, 496);
 	mapPoints();
@@ -374,6 +393,7 @@ function play() {
 function pause() {
 	keep = false;
 }
+
 function unpause() {
 	keep = true;
 	play();
