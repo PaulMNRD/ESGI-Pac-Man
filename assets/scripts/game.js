@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 let map = [
 	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
@@ -155,6 +156,12 @@ class PacMan {
 		this.Y = Y;
 		this.color = color;
 		this.sprite.src = path;
+=======
+import {Ghost} from './ghost.js';
+import {PacMan} from './pac-man.js';
+import {map, newMap, mapPoints} from './map.js';
+import {ctx} from './share.js';
+>>>>>>> Stashed changes
 
 		this.draw();
 	}
@@ -233,6 +240,7 @@ class PacMan {
 let ctx = document.getElementById('map').getContext('2d');
 let score = document.querySelector('#score');
 let life = document.querySelector('#life');
+<<<<<<< Updated upstream
 
 let keep = true;
 let map_bis = map;
@@ -324,7 +332,19 @@ function testDirectory() {
 		}
 	}
 }
+=======
+let jeu = document.querySelector('#map');
+const start = document.querySelector('#start');
+let gameover = document.querySelector('#game-over');
+
+let keep = false;
+let pacman;
+let ghosts;
+
+>>>>>>> Stashed changes
 function run() {
+	ctx.clearRect(0, 0, 448, 496);
+	mapPoints(map);
 	pacman.move();
 	ghost_in_base = 0
 	for (i = 0; i < ghosts.length; i++) {
@@ -349,9 +369,13 @@ function run() {
 				pacman.X = 13 * 16;
 				pacman.Y = 23 * 16;
 				pacman.life -= 1;
+				life.removeChild(life.children[pacman.life]);
 				pacman.direction = 1
 				directory = 1
 				if (pacman.life == 0) {
+					gameover.style.display = "block";
+					gameover.style.zIndex = "2";
+					jeu.style.filter = "blur(2px)";
 					keep = false;
 				}
 			}
@@ -362,6 +386,7 @@ function run() {
 			}
 		}
 	}
+<<<<<<< Updated upstream
 	score.innerHTML = pacman.score;
 	life.innerHTML = pacman.life;
 }
@@ -371,15 +396,54 @@ function play() {
 		mapPoints();
 		testDirectory();
 		run();
+=======
+	if(pacman.win){
+		newGame(pacman.score, pacman.life);
+	}
+	score.innerHTML = pacman.score;
+	
+	if(keep){
+		requestAnimationFrame(run);
+>>>>>>> Stashed changes
 	}
 	requestAnimationFrame(play);
 }
 
+<<<<<<< Updated upstream
 function pause() {
 	keep = false;
 }
 function unpause() {
+=======
+function play(element) {
+>>>>>>> Stashed changes
 	keep = true;
+	newGame(0, 3);
+	jeu.style.filter = "none";
+	life.innerHTML = "<img src=\"assets/img/pacman-life.png\" alt=\"\" width=\"20px\"><img src=\"assets/img/pacman-life.png\" alt=\"\" width=\"20px\"><img src=\"assets/img/pacman-life.png\" alt=\"\" width=\"20px\">";
+	element.style.display="none";
+	run();
 }
+<<<<<<< Updated upstream
 
 play();
+=======
+
+function newGame(initialScore, nbrOfLife){
+	pacman = new PacMan(13 * 16 + 8, 23 * 16 + 8, initialScore, nbrOfLife);
+	
+	ghosts = {
+		pinky: new Ghost(13 * 16, 14 * 16, "red", "assets/img/pinky.png"),
+		blinky: new Ghost(14 * 16, 14 * 16, "cyan", "assets/img/blinky.png"),
+		inky: new Ghost(12 * 16, 14 * 16, "pink", "assets/img/inky.png"),
+		clyde: new Ghost(15 * 16, 14 * 16, "orange", "assets/img/clyde.png"),
+	};
+	newMap();
+}
+
+function setPacManLastInput(input){
+	pacman.lastInput = input;
+}
+
+export {play, setPacManLastInput};
+>>>>>>> Stashed changes
