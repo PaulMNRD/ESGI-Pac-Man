@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 let map = [
 	[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
 	[false, true, true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true, true, true, true, true, true, true, true, false],
@@ -147,13 +148,119 @@ function play() {
 		blinky.move();
 		inky.move();
 		clyde.move();
+=======
+import {Ghost} from './ghost.js';
+import {PacMan} from './pac-man.js';
+import {map, newMap, mapPoints} from './map.js';
+import {ctx} from './share.js';
+
+let score = document.querySelector('#score');
+let life = document.querySelector('#life');
+let keep = true;
+let pacman;
+let ghosts;
+
+document.addEventListener('keydown', function (event) {
+	if (event.code == "ArrowUp" || event.code == "KeyW") {
+		pacman.lastInput = 0;
 	}
-	requestAnimationFrame(play);
+	if (event.code == "ArrowRight" || event.code == "KeyD") {
+		pacman.lastInput = 1;
+	}
+	if (event.code == "ArrowDown" || event.code == "KeyS") {
+		pacman.lastInput = 2;
+	}
+	if (event.code == "ArrowLeft" || event.code == "KeyA") {
+		pacman.lastInput = 3;
+	}
+});
+
+
+function run() {
+	pacman.move();
+	var ghost_in_base = 0;
+	
+	for(var ghost in ghosts) {
+		if ((ghosts[ghost].caseX > 12 && ghosts[ghost].caseX < 17) && (ghosts[ghost].caseY > 12 && ghosts[ghost].caseX < 15)) {
+			ghost_in_base++;
+		}
+		if (ghost_in_base != 0) {
+			map[12][13] = 1;
+			map[12][14] = 1;
+		}
+		else {
+			map[12][13] = 0;
+			map[12][14] = 0;
+		}
+		ghosts[ghost].move();
+		if (pacman.caseX == ghosts[ghost].caseX && pacman.caseY == ghosts[ghost].caseY) {
+			if (pacman.condition == 0) {
+				for(var ghost in ghosts) {
+					ghosts[ghost].X = 13 * 16;
+					ghosts[ghost].Y = 14 * 16;
+				}
+				
+				pacman.X = 13 * 16 + 8;
+				pacman.Y = 23 * 16 + 8;
+				pacman.life -= 1;
+				pacman.direction = 1
+				if (pacman.life == 0) {
+					keep = false;
+					newGame(0, 3);
+				}
+			}
+			else if (pacman.condition == 1) {
+				ghosts[ghost].X = 13 * 16;
+				ghosts[ghost].Y = 14 * 16;
+				pacman.score += 100
+			}
+		}
+	}
+	if(pacman.win){
+		keep = false;
+		newGame(pacman.score, pacman.life);
+	}
+	score.innerHTML = pacman.score;
+	life.innerHTML = pacman.life;
 }
 
+function play() {
+	ctx.clearRect(0, 0, 448, 496);
+	mapPoints(map);
+	run();
+	
+	if(keep){
+		requestAnimationFrame(play);
+	}
+	else{
+		keep = true;
+>>>>>>> Stashed changes
+	}
+}
+
+<<<<<<< Updated upstream
 function pause(){
 	keep = false;
 }
 function unpause(){
 	keep = true;
 }
+=======
+function newGame(initialScore, nbrOfLife){
+	pacman = new PacMan(13 * 16 + 8, 23 * 16 + 8, initialScore, nbrOfLife);
+	
+	ghosts = {
+		pinky: new Ghost(13 * 16, 14 * 16, "red", "assets/img/pinky.png"),
+		blinky: new Ghost(14 * 16, 14 * 16, "cyan", "assets/img/blinky.png"),
+		inky: new Ghost(12 * 16, 14 * 16, "pink", "assets/img/inky.png"),
+		clyde: new Ghost(15 * 16, 14 * 16, "orange", "assets/img/clyde.png"),
+	};
+	newMap();
+	
+	play();
+}
+
+newGame(0, 3);
+
+export {newGame};
+>>>>>>> Stashed changes
