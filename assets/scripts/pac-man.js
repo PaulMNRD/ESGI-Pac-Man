@@ -2,7 +2,7 @@ import {map} from './map.js';
 import {ctx} from './share.js';
 import {Entity} from './entity.js';
 
-let pointsLeft = 244;
+let pointsLeft;
 let angle1, angle2; // variables pour les angles qui forment la bouche de pacman en fonction de sa direction
 let angleState = 0
 let animationState = 0;
@@ -20,7 +20,8 @@ export class PacMan extends Entity{
         super(X, Y)
         this.score = score;
         this.life = life;
-
+	pointsLeft = 244;
+	
         this.draw();
     }
     
