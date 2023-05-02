@@ -2,6 +2,7 @@ import {Ghost} from './ghost.js';
 import {PacMan} from './pac-man.js';
 import {map, newMap, mapPoints} from './map.js';
 import {ctx} from './share.js';
+import {Case} from './case.js';
 
 let score = document.querySelector('#score');
 let life = document.querySelector('#life');
@@ -17,10 +18,10 @@ function run() {
 	ctx.clearRect(0, 0, 448, 496);
 	mapPoints(map);
 	pacman.move();
-	var ghost_in_base = 0;
+	//var ghost_in_base = 0;
 	
 	for(var ghost in ghosts) {
-		if ((ghosts[ghost].caseX > 12 && ghosts[ghost].caseX < 17) && (ghosts[ghost].caseY > 12 && ghosts[ghost].caseX < 15)) {
+		/*if ((ghosts[ghost].caseX > 12 && ghosts[ghost].caseX < 17) && (ghosts[ghost].caseY > 12 && ghosts[ghost].caseX < 15)) {
 			ghost_in_base++;
 		}
 		if (ghost_in_base != 0) {
@@ -30,8 +31,8 @@ function run() {
 		else {
 			map[12][13] = 0;
 			map[12][14] = 0;
-		}
-		ghosts[ghost].move();
+		}*/
+		ghosts[ghost].move(new Case(pacman.caseX, pacman.caseY));
 		if (pacman.caseX == ghosts[ghost].caseX && pacman.caseY == ghosts[ghost].caseY) {
 			if (pacman.condition == 0) {
 				death();
@@ -67,8 +68,8 @@ function play(element) {
 	run();
 }
 
-function newGame(initialScore, nbrOfLife, withMap = true){
-	pacman = new PacMan(13 * 16 + 8, 23 * 16 + 8, initialScore, nbrOfLife);
+function newGame(initialScore, nbrOfLife, withMap = true, pointsLeft = 244){
+	pacman = new PacMan(13 * 16 + 8, 23 * 16 + 8, initialScore, nbrOfLife, pointsLeft);
 	
 	ghosts = {
 		pinky: new Ghost(13 * 16, 14 * 16, "red", "assets/img/pinky.png"),
@@ -90,7 +91,7 @@ function death(){
 	
 	pacman.deathAnimation();
 	if(!pacman.death){
-		newGame(pacman.score, pacman.life - 1, false);
+		newGame(pacman.score, pacman.life - 1, false, pacman.pointsLeft);
 		life.removeChild(life.children[pacman.life]);
 
 		if (pacman.life == 0) {
@@ -106,6 +107,17 @@ function death(){
 	}
 	else{
 		requestAnimationFrame(death);
+	}
+}
+
+function getTarget(){
+	let adaptX = [0, 2, 0, -2];
+	let adaptY = [-2, 0, 2, 0];
+	let targets = {
+		pinky: new Case(pacman.caseX, pacman.caseY),
+		inky: new Case(pacman.caseX + adaptX[pacman.direction]*2, pacman.caseY + adaptY[pacman.direction]*2),
+		blinky: new Case(pacman.caseX, pacman.caseY),
+		clyde: new Case(pacman.caseX, pacman.caseY),
 	}
 }
 export {play, setPacManLastInput};

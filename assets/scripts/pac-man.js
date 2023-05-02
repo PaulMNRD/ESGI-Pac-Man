@@ -2,7 +2,6 @@ import {map} from './map.js';
 import {ctx} from './share.js';
 import {Entity} from './entity.js';
 
-let pointsLeft;
 let angle1, angle2; // variables pour les angles qui forment la bouche de pacman en fonction de sa direction
 let angleState;
 let animationState;
@@ -11,17 +10,18 @@ let timeStart;
 
 export class PacMan extends Entity{
     
+    pointsLeft;
     win = false;
     death = false;
     lastInput = 1;
     condition = 0;
     
 
-    constructor(X, Y, score, life) {
+    constructor(X, Y, score, life, pointsLeft = 244) {
         super(X, Y)
         this.score = score;
         this.life = life;
-	    pointsLeft = 244;
+	    this.pointsLeft = pointsLeft;
         angleState = 0;
         animationState = 0;
 	
@@ -29,8 +29,8 @@ export class PacMan extends Entity{
     }
     
     isWon(){
-        pointsLeft-=1;
-        if(pointsLeft === 0){
+        this.pointsLeft-=1;
+        if(this.pointsLeft === 0){
             this.win = true;
         }
     }
