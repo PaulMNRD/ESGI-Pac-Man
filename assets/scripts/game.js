@@ -241,6 +241,7 @@ class PacMan {
 let ctx = document.getElementById('map').getContext('2d');
 let score = document.querySelector('#score');
 let life = document.querySelector('#life');
+<<<<<<< Updated upstream
 
 let keep = true;
 
@@ -253,10 +254,14 @@ let ghosts = [pinky, blinky, inky, clyde];
 let pacman = new PacMan(13 * 16, 23 * 16, "yellow", "");
 let directory = pacman.direction
 
+=======
+let level = document.querySelector('#level');
+>>>>>>> Stashed changes
 let jeu = document.querySelector('#map');
-const start = document.querySelector('#start');
+let start = document.querySelector('#start');
 let gameover = document.querySelector('#game-over');
 
+<<<<<<< Updated upstream
 document.addEventListener('keydown', function (event) {
 	if ((event.code == "ArrowUp" || event.code == "KeyW")) {
 		if (map[pacman.caseY - 1][pacman.caseX] != 0) {
@@ -333,6 +338,12 @@ function testDirectory() {
 		}
 	}
 }
+=======
+let keep = false;
+let ghosts;
+>>>>>>> Stashed changes
+
+export let pacman;
 
 function run() {
 	pacman.move();
@@ -359,6 +370,7 @@ function run() {
 				pacman.X = 13 * 16;
 				pacman.Y = 23 * 16;
 				pacman.life -= 1;
+<<<<<<< Updated upstream
 				pacman.direction = 1
 				directory = 1
 			}
@@ -366,6 +378,21 @@ function run() {
 				ghosts[i].X = 13 * 16;
 				ghosts[i].Y = 14 * 16;
 				pacman.score += 100
+=======
+				life.removeChild(life.children[pacman.life]);
+				pacman.direction = 1;
+				if (pacman.life == 0) {
+					gameover.style.display = "block";
+					gameover.style.zIndex = "2";
+					jeu.style.filter = "blur(2px)";
+					keep = false;
+				}
+			}
+			else if (pacman.condition == 1) {
+				ghosts[ghost].X = 13 * 16;
+				ghosts[ghost].Y = 14 * 16;
+				pacman.score += 100;
+>>>>>>> Stashed changes
 			}
 		}
 	}
@@ -375,8 +402,14 @@ function run() {
 		keep = false;
 	}
 	score.innerHTML = pacman.score;
+<<<<<<< Updated upstream
 	if(life.childElementCount > pacman.life){
 		life.removeChild(life.children[pacman.life]);
+=======
+
+	if(keep){
+		requestAnimationFrame(run);
+>>>>>>> Stashed changes
 	}
 }
 
@@ -390,8 +423,23 @@ function play() {
 	}
 }
 
+<<<<<<< Updated upstream
 function pause() {
 	keep = false;
+=======
+function newGame(initialScore, nbrOfLife){
+	level.innerHTML++;
+
+	pacman = new PacMan(13 * 16 + 8, 23 * 16 + 8, initialScore, nbrOfLife);
+
+	ghosts = {
+		pinky: new Ghost(13 * 16, 14 * 16, "red", "assets/img/pinky.png"),
+		blinky: new Ghost(14 * 16, 14 * 16, "cyan", "assets/img/blinky.png"),
+		inky: new Ghost(12 * 16, 14 * 16, "pink", "assets/img/inky.png"),
+		clyde: new Ghost(15 * 16, 14 * 16, "orange", "assets/img/clyde.png"),
+	};
+	newMap();
+>>>>>>> Stashed changes
 }
 
 function unpause() {

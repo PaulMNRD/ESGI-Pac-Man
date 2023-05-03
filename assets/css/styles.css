@@ -51,7 +51,7 @@ header ul li a:hover {
 }
 
 .container {
-	padding: 100px 0;
+	padding-top: 80px;
 	max-width: 1480px;
 	margin: 0 auto;
 	display: flex;
@@ -100,6 +100,11 @@ header ul li a:hover {
 #game-over {
 	padding: 148px 0;
 	z-index: 0;
+	cursor: pointer;
+}
+
+#under-map {
+	margin-left: 5px;
 }
 
 .jeu {
