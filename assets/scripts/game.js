@@ -261,6 +261,7 @@ let life = document.querySelector('#life');
 let keep = true;
 let map_bis = map;
 
+<<<<<<< Updated upstream
 let pinky = new Ghost(13 * 16, 14 * 16, "red", "assets/img/pinky.png");
 let blinky = new Ghost(14 * 16, 14 * 16, "cyan", "assets/img/blinky.png");
 let inky = new Ghost(12 * 16, 14 * 16, "pink", "assets/img/inky.png");
@@ -348,6 +349,9 @@ function testDirectory() {
 		}
 	}
 }
+=======
+
+>>>>>>> Stashed changes
 function run() {
 	pacman.move();
 	ghost_in_base = 0
@@ -377,6 +381,17 @@ function run() {
 				directory = 1
 				if (pacman.life == 0) {
 					keep = false;
+
+					// Envoi de la valeur de finalScore à un script PHP
+
+					fetch('process.php', {
+						method: 'POST',
+						body: JSON.stringify({score: pacman.score}),
+						headers: {'Content-Type': 'application/json'}
+					})
+					.then(response => response.text())
+					.then(data => console.log(data))
+					.catch(error => console.error(error));
 				}
 			}
 			else if (pacman.condition == 1) {
