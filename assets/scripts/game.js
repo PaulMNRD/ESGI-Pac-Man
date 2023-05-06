@@ -13,11 +13,38 @@ let gameover = document.querySelector('#game-over');
 let keep = false;
 let pacman;
 let ghosts;
+let timer;
+let mode;
+let changeMode;
 
 function run() {
 	ctx.clearRect(0, 0, 448, 496);
 	mapPoints(map);
 	pacman.move();
+	
+	let gameTimer = Math.floor((performance.now() - timer) / 1000);
+	
+	if(gameTimer < 7 || (gameTimer >= 27 && gameTimer < 34) || (gameTimer >= 54 && gameTimer < 59) || (gameTimer >= 79 && gameTimer < 84)){
+		if(mode === 0){
+			changeMode = true;
+		}
+		mode = 1;
+	}
+	else{
+		if(mode === 1){
+			changeMode = true;
+		}
+		mode = 0;
+	}
+	
+	ghosts['pinky'].gate(0);
+	ghosts['blinky'].gate(2000);
+	ghosts['inky'].gate(7000);
+	ghosts['clyde'].gate(17000);
+		
+	let targets = getTarget(mode);
+	
+	
 	//var ghost_in_base = 0;
 	
 	for(var ghost in ghosts) {
@@ -32,15 +59,37 @@ function run() {
 			map[12][13] = 0;
 			map[12][14] = 0;
 		}*/
-		ghosts[ghost].move(new Case(pacman.caseX, pacman.caseY));
-		if (pacman.caseX == ghosts[ghost].caseX && pacman.caseY == ghosts[ghost].caseY) {
-			if (pacman.condition == 0) {
-				death();
+		
+		if(pacman.condition === 0){
+				ghosts[ghost].eaten = false;
+				ghosts[ghost].scared = false;
+		}
+		else{
+			if(ghosts[ghost].eaten){
+				ghosts[ghost].scared = false;
 			}
-			else if (pacman.condition == 1) {
-				ghosts[ghost].X = 13 * 16;
-				ghosts[ghost].Y = 14 * 16;
-				pacman.score += 100
+			if(!ghosts[ghost].scared && !ghosts[ghost].eaten){
+				changeMode = true;
+				ghosts[ghost].scared = true;
+			}
+		}
+		if(changeMode){
+			ghosts[ghost].invertDir = true;
+			changeMode = false;
+		}
+		ghosts[ghost].move(targets[ghost]);
+		if (pacman.caseX === ghosts[ghost].caseX && pacman.caseY === ghosts[ghost].caseY) {
+			if (pacman.condition === 1 && !ghosts[ghost].eaten) {
+				//ghosts[ghost].X = 13 * 16;
+				//ghosts[ghost].Y = 14 * 16;
+				ghosts[ghost].eaten = true;
+				ghosts[ghost].deathWalk = true;
+				pacman.score += 100;
+			}
+			else{
+				if(keep && !ghosts[ghost].deathWalk){
+					death();
+				}
 			}
 		}
 	}
@@ -65,6 +114,7 @@ function play(element) {
 	if(element){
 		element.style.display="none";
 	}
+	timer = performance.now();
 	run();
 }
 
@@ -94,15 +144,15 @@ function death(){
 		newGame(pacman.score, pacman.life - 1, false, pacman.pointsLeft);
 		life.removeChild(life.children[pacman.life]);
 
-		if (pacman.life == 0) {
+		if (pacman.life === 0) {
 			gameover.style.display = "block";
 			gameover.style.zIndex = "2";
 			jeu.style.filter = "blur(2px)";
 			keep = false;
 		}
 		else{
-			keep = true;
-			run();
+				keep = true;
+				run();
 		}
 	}
 	else{
@@ -110,14 +160,56 @@ function death(){
 	}
 }
 
-function getTarget(){
+function getTarget(mode){ //0 ==> CHASSE //1 ==> BALLADE//PAS DE TARGET EN EFFROI
 	let adaptX = [0, 2, 0, -2];
 	let adaptY = [-2, 0, 2, 0];
-	let targets = {
-		pinky: new Case(pacman.caseX, pacman.caseY),
-		inky: new Case(pacman.caseX + adaptX[pacman.direction]*2, pacman.caseY + adaptY[pacman.direction]*2),
-		blinky: new Case(pacman.caseX, pacman.caseY),
-		clyde: new Case(pacman.caseX, pacman.caseY),
+	
+	let pX;
+	let pY;
+	let iX;
+	let iY;
+	let bX;
+	let bY;
+	let cX;
+	let cY;
+	
+	switch(mode){
+		case 0:
+			pX = pacman.caseX;
+			pY = pacman.caseY;
+			iX = pacman.caseX + adaptX[pacman.direction]*2;
+			iY = pacman.caseY + adaptY[pacman.direction]*2;
+			bX = 2*(pacman.caseX + adaptX[pacman.direction]) - ghosts['pinky'].caseX;
+			bY = 2*(pacman.caseY + adaptY[pacman.direction]) - ghosts['pinky'].caseY;
+
+			if(Math.sqrt((ghosts['clyde'].caseX - pacman.caseX)**2 + (ghosts['clyde'].caseY - pacman.caseY)**2) <= 8){
+				cX = 1;
+				cY = 29;
+			}
+			else{
+				cX = pacman.caseX;
+				cY = pacman.caseY;
+			}
+			break;
+		case 1:
+			pX = 26;
+			pY = 1;
+			iX = 1;
+			iY = 1;
+			bX = 26;
+			bY = 29;
+			cX = 1;
+			cY = 29;
 	}
+	
+	
+	let targets = {
+		pinky: new Case(pX, pY),
+		inky: new Case(iX, iY),
+		blinky: new Case(bX, bY),
+		clyde: new Case(cX, cY),
+	}
+	
+	return targets;
 }
 export {play, setPacManLastInput};

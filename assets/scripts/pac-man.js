@@ -10,7 +10,9 @@ let timeStart;
 
 export class PacMan extends Entity{
     
+    
     pointsLeft;
+    resetScared = false;
     win = false;
     death = false;
     lastInput = 1;
@@ -35,6 +37,10 @@ export class PacMan extends Entity{
         }
     }
     isPoint() {
+        if(this.resetScared){
+            this.condition = 1;
+            this.resetScared = false;
+        }
         if (map[this.caseY][this.caseX] == 2) {
             map[this.caseY][this.caseX] = 1;
             this.score += 10;
@@ -43,7 +49,13 @@ export class PacMan extends Entity{
 		else if (map[this.caseY][this.caseX] == 3) {
             map[this.caseY][this.caseX] = 1;
             this.score += 100;
-            this.condition = 1;
+            if(this.condition == 0){
+                this.condition = 1;
+            }
+            else{
+                this.condition = 0;
+                this.resetScared = true;
+            }
             timeStart = performance.now();
             this.isWon();
         }
@@ -55,25 +67,25 @@ export class PacMan extends Entity{
 
         switch (this.direction) {
             case 0:
-                if (map[this.caseY - 1][this.caseX] != 0 || this.Y%16 != 8) {
+                if (map[this.caseY - 1][this.caseX] != 0 || !(Math.floor(this.Y)%16 >= 8 && Math.floor(this.Y)%16 < 8 + this.baseSpeed)) {
                     this.Y -= this.speed;
                 }
 				break;
                 case 1:
-                    if (map[this.caseY][this.caseX + 1] != 0 || this.X%16 != 8) {
+                    if (map[this.caseY][this.caseX + 1] != 0 || !(Math.floor(this.X)%16 >= 8 && Math.floor(this.X)%16 < 8 + this.baseSpeed)) {
                         this.X += this.speed;
                         if (this.X > 27 * 16 + 8) {
-                            this.X = -15;
+                            this.X = 0;
                         }
                     }
 				break;
                     case 2:
-                        if (map[this.caseY + 1][this.caseX] != 0 || this.Y%16 != 8) {
+                        if (map[this.caseY + 1][this.caseX] != 0 || !(Math.floor(this.Y)%16 >= 8 && Math.floor(this.Y)%16 < 8 + this.baseSpeed)) {
                             this.Y += this.speed;
                         }
 				break;
                         case 3:
-                            if (map[this.caseY][this.caseX - 1] != 0 || this.X%16 != 8) {
+                            if (map[this.caseY][this.caseX - 1] != 0 || !(Math.floor(this.X)%16 >= 8 && Math.floor(this.X)%16 < 8 + this.baseSpeed)) {
                                 this.X -= this.speed;
                                 if (this.X < 0) {
                                     this.X = 27 * 16 + 8;
@@ -141,22 +153,22 @@ export class PacMan extends Entity{
         if(this.direction !== this.lastInput){
             switch(this.lastInput){
                 case 0:
-                    if (map[this.caseY - 1][this.caseX] && this.X%16 == 8) {
+                    if (map[this.caseY - 1][this.caseX] && (Math.floor(this.X)%16 >= 8 && Math.floor(this.X)%16 < 8 + this.baseSpeed)) {
                         this.direction = 0;
                     }
                     break;
                 case 1:
-                    if (map[this.caseY][this.caseX + 1] && this.Y%16 == 8) {
+                    if (map[this.caseY][this.caseX + 1] && (Math.floor(this.Y)%16 >= 8 && Math.floor(this.Y)%16 < 8 + this.baseSpeed)) {
                         this.direction = 1;
                     }
                     break;
                 case 2:
-                    if (map[this.caseY + 1][this.caseX] && this.X%16 == 8) {
+                    if (map[this.caseY + 1][this.caseX] && (Math.floor(this.X)%16 >= 8 && Math.floor(this.X)%16 < 8 + this.baseSpeed)) {
                         this.direction = 2;
                     }
                     break;
                 case 3:
-                    if (map[this.caseY][this.caseX - 1] && this.Y%16 == 8) {
+                    if (map[this.caseY][this.caseX - 1] && (Math.floor(this.Y)%16 >= 8 && Math.floor(this.Y)%16 < 8 + this.baseSpeed)) {
                         this.direction = 3;
                     }
                     break;

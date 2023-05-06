@@ -2,11 +2,12 @@ import {ctx} from './share.js';
 
 export class Entity{
     direction = 1;
-    speed = 1;
+    baseSpeed = 2;
     
     constructor(X, Y) {
         this.X = X;
         this.Y = Y;
+        this.speed = this.baseSpeed;
     }
     
     get caseX() {
