@@ -1,0 +1,123 @@
+@font-face {
+	font-family: 'Emulogic';
+	src: url('../fonts/Emulogic-zrEw.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	background-image: url("../img/bg-site.jpeg");
+	color: yellow;
+	background-size: cover;
+	margin: 0;
+	font-family: 'Emulogic', sans-serif;
+
+}
+
+header nav {
+	padding: 20px 50px;
+	display: flex;
+	justify-content: space-between;
+}
+
+header img {
+	margin-top: 10px;
+}
+
+header ul {
+	list-style: none;
+	display: flex;
+}
+
+header ul li a {
+	text-decoration: none;
+	padding: 13px 20px;
+	text-transform: uppercase;
+	border: 1px solid transparent;
+	color: yellow;
+	font-weight: 500;
+	font-size: 12px;
+	transition: 0.6s;
+}
+
+header ul li a:hover {
+	background: yellow;
+	color: black;
+}
+
+#login{
+	border: 1px solid yellow;
+}
+
+.active a {
+	background: yellow;
+	color: black;
+}
+
+.container {
+	padding: 100px 0;
+	max-width: 1480px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.items {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.items .stats {
+	display: flex;
+	width: 280px;
+	padding: 10px 0;
+}
+
+.items a {
+	color: yellow;
+	text-decoration: none;
+	padding: 10px;
+	border: 1px solid yellow;
+	transition: 0.6s;
+}
+
+.items a:hover {
+	background: yellow;
+	color: black;
+}
+
+#map {
+	border: 5px solid yellow;
+	background-image: url("../img/map.png");
+	filter: blur(2px);
+	border-radius: 15px;
+	z-index: 1;
+}
+
+#start {
+	padding: 148px 0;
+	z-index: 2;
+	cursor: pointer;
+}
+
+#game-over {
+	padding: 148px 0;
+	z-index: 0;
+	cursor: pointer;
+}
+
+#under-map {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+.jeu {
+	position: absolute;
+}
+
+#lead {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
