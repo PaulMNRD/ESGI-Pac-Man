@@ -2,6 +2,7 @@ import {getMap} from './map.js';
 import {ctx} from './share.js';
 import {Entity} from './entity.js';
 import {Case} from './case.js';
+import { level } from './game.js';
 
 let ghostCase;
 let visitedCases;
@@ -90,17 +91,46 @@ export class Ghost extends Entity{
     }
     
     getSpeed(){
-        if(this.scared && !this.deathWalk){
-            this.speed = 0.5*this.baseSpeed;
+        if (level.innerHTML == 1){
+            if(this.scared && !this.deathWalk){
+                this.speed = 0.5*this.baseSpeed;
+            }
+            else if ((this.caseX < 6 || this.caseX > 21) && this.caseY == 14) {
+                this.speed = 0.4*this.baseSpeed;
+            }
+            else{
+                this.speed = 0.75*this.baseSpeed;
+            }
+        } 
+        else if (level.innerHTML>=2 && level.innerHTML<=4){
+            if(this.scared && !this.deathWalk){
+                this.speed = 0.55*this.baseSpeed;
+            }
+            else if ((this.caseX < 6 || this.caseX > 21) && this.caseY == 14) {
+                this.speed = 0.45*this.baseSpeed;
+            }
+            else{
+                this.speed = 0.85*this.baseSpeed;
+            }
         }
-        //else if(this.deathWalk){
-           // this.speed = 2;
-        //}
-        else if ((this.caseX < 6 || this.caseX > 21) && this.caseY == 14) {
-            this.speed = 0.7*this.baseSpeed;
+        else if (level.innerHTML>=5 && level.innerHTML<=20){
+            if(this.scared && !this.deathWalk){
+                this.speed = 0.60*this.baseSpeed;
+            }
+            else if ((this.caseX < 6 || this.caseX > 21) && this.caseY == 14) {
+                this.speed = 0.50*this.baseSpeed;
+            }
+            else{
+                this.speed = 0.95*this.baseSpeed;
+            }    
         }
-        else{
-            this.speed = this.baseSpeed;
+        else {
+            if ((this.caseX < 6 || this.caseX > 21) && this.caseY == 14) {
+                this.speed = 0.50*this.baseSpeed;
+            }
+            else{
+                this.speed = 0.95*this.baseSpeed;
+            }    
         }
     }
 

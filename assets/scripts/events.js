@@ -1,6 +1,6 @@
 import {play, setPacManLastInput} from './game.js';
 
-const start = document.querySelector('#start');
+let start = document.querySelector('#start');
 let gameover = document.querySelector('#game-over');
 
 document.addEventListener('keydown', function (event) {

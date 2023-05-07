@@ -55,7 +55,7 @@ header ul li a:hover {
 }
 
 .container {
-	padding: 100px 0;
+	padding-top: 80px;
 	max-width: 1480px;
 	margin: 0 auto;
 	display: flex;
@@ -85,6 +85,27 @@ header ul li a:hover {
 .items a:hover {
 	background: yellow;
 	color: black;
+}
+
+.info_points {
+	display: flex;
+	align-items: center;
+}
+
+#point {
+	background-color: yellow;
+	width: 15px;
+	height: 15px;
+}
+
+.super {
+	border-radius: 50%;
+}
+
+#score-display {
+	z-index: 2;
+	display: none;
+	position: absolute;
 }
 
 #map {
