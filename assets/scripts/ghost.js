@@ -242,11 +242,13 @@ export class Ghost extends Entity{
             this.map[12][13] = 1;
             this.map[13][13] = 1;
         }
-        else if ((this.caseX >= 12 && this.caseX <= 15) && this.caseY === 23 && this.direction != 2) {
+        else if ((this.caseX >= 12 && this.caseX <= 15) && this.caseY === 23) {
             this.map[22][12] = 0;
             this.map[22][15] = 0;
         }
         else{
+            this.map[22][12] = 1;
+            this.map[22][15] = 1;
             this.map[12][13] = 0;
             this.map[13][13] = 0;
         }

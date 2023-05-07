@@ -11,7 +11,7 @@ body {
 	background-size: cover;
 	margin: 0;
 	font-family: 'Emulogic', sans-serif;
-
+	
 }
 
 header nav {
@@ -43,6 +43,10 @@ header ul li a {
 header ul li a:hover {
 	background: yellow;
 	color: black;
+}
+
+#login{
+	border: 1px solid yellow;
 }
 
 .active a {
@@ -101,6 +105,11 @@ header ul li a:hover {
 	padding: 148px 0;
 	z-index: 0;
 	cursor: pointer;
+}
+
+#under-map {
+	margin-left: 5px;
+	margin-top: 5px;
 }
 
 .jeu {
