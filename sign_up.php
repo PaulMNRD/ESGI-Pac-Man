@@ -27,7 +27,7 @@ if (isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password'
     {
         // retourner vrai si l'email est déjà utilisé, faux sinon
         $connexion = connect_db();
-        $query = $connexion->prepare('SELECT COUNT(*) AS nb FROM player WHERE email = :email');
+        $query = $connexion->prepare('SELECT COUNT(*) AS nb FROM players WHERE email = :email');
         $query->execute(['email' => $email]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['nb'] > 0;
