@@ -11,7 +11,6 @@ body {
 	background-size: cover;
 	margin: 0;
 	font-family: 'Emulogic', sans-serif;
-
 }
 
 header nav {
@@ -45,7 +44,11 @@ header ul li a:hover {
 	color: black;
 }
 
-#login{
+#login {
+	border: 1px solid yellow;
+}
+
+#logout {
 	border: 1px solid yellow;
 }
 
@@ -55,11 +58,20 @@ header ul li a:hover {
 }
 
 .container {
-	padding: 100px 0;
+	padding-top: 80px;
 	max-width: 1480px;
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-evenly;
+}
+
+.container2 {
+	padding-top: 80px;
+	max-width: 1480px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .items {
@@ -85,6 +97,46 @@ header ul li a:hover {
 .items a:hover {
 	background: yellow;
 	color: black;
+}
+
+#infosPoints {
+	display: none;
+}
+
+.infos_points {
+	display: flex;
+	align-items: center;
+}
+
+#point {
+	background-color: yellow;
+	width: 15px;
+	height: 15px;
+}
+
+.super {
+	border-radius: 50%;
+}
+
+#hide {
+	color: yellow;
+	text-decoration: none;
+	padding: 10px;
+	width: fit-content;
+	border: 1px solid yellow;
+	transition: 0.6s;
+	cursor: pointer;
+}
+
+#hide:hover {
+	background: yellow;
+	color: black;
+}
+
+#score-display {
+	z-index: 2;
+	display: none;
+	position: absolute;
 }
 
 #map {
@@ -119,5 +171,53 @@ header ul li a:hover {
 #lead {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: baseline;
+}
+
+table {
+	border: 1px solid yellow;
+}
+
+.switch_log_sign {
+	color: yellow;
+	text-decoration: none;
+	padding: 10px;
+	width: fit-content;
+	border: 1px solid yellow;
+	transition: 0.6s;
+	cursor: pointer;
+}
+
+.switch_log_sign:hover {
+	background-color: yellow;
+	color: black;
+}
+
+form {
+	display: flex;
+	align-items: center;
+}
+
+form input {
+	padding-right: 20px;
+	background-color: transparent;
+	border: 1px solid yellow;
+	color: yellow;
+	max-width: 175px;
+}
+
+.submit {
+	background-color: transparent;
+	color: yellow;
+	padding: 10px 20px;
+	font-family: 'Emulogic', sans-serif;
+	border: 1px solid yellow;
+	transition: 0.6s;
+	cursor: pointer;
+	max-width: 200px;
+}
+
+.submit:hover {
+	background-color: yellow;
+	color: black;
 }
